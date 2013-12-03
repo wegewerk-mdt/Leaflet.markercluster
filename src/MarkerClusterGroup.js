@@ -10,6 +10,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		iconCreateFunction: null,
 
 		spiderfyOnMaxZoom: true,
+		spiderfyAlways: false,
 		showCoverageOnHover: true,
 		zoomToBoundsOnClick: true,
 		singleMarkerMode: false,
@@ -592,12 +593,16 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 	_zoomOrSpiderfy: function (e) {
 		var map = this._map;
-		if (map.getMaxZoom() === map.getZoom()) {
-			if (this.options.spiderfyOnMaxZoom) {
-				e.layer.spiderfy();
+		if (this.options.spiderfyAlways) {
+			e.layer.spiderfy();
+		} else {
+			if (map.getMaxZoom() === map.getZoom()) {
+				if (this.options.spiderfyOnMaxZoom) {
+					e.layer.spiderfy();
+				}
+			} else if (this.options.zoomToBoundsOnClick) {
+				e.layer.zoomToBounds();
 			}
-		} else if (this.options.zoomToBoundsOnClick) {
-			e.layer.zoomToBounds();
 		}
 	},
 
