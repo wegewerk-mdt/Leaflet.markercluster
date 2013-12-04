@@ -33,6 +33,9 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		//Increase to increase the distance away that spiderfied markers appear from the center
 		spiderfyDistanceMultiplier: 1,
 
+		// Options to pass on construction of a spiderLeg polyline)
+		spiderfyLegOptions: { weight: 1.5, color: '#222' },
+
 		//Options to pass to the L.Polygon constructor
 		polygonOptions: {}
 	},
@@ -1767,7 +1770,7 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 			fg.addLayer(m);
 
 
-			leg = new L.Polyline([this._latlng, newPos], { weight: 1.5, color: '#222' });
+			leg = new L.Polyline([this._latlng, newPos], this._group.options.spiderfyLegOptions);
 			map.addLayer(leg);
 			m._spiderLeg = leg;
 		}
@@ -1829,9 +1832,12 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 				m.setOpacity(1);
 			}
 
+			var legOptions = this._group.options.spiderfyLegOptions;
+			legOptions.opacity = initialLegOpacity;
+
 
 			//Add Legs.
-			leg = new L.Polyline([me._latlng, newPos], { weight: 1.5, color: '#222', opacity: initialLegOpacity });
+			leg = new L.Polyline([me._latlng, newPos], legOptions);
 			map.addLayer(leg);
 			m._spiderLeg = leg;
 

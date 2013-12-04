@@ -137,7 +137,7 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 			fg.addLayer(m);
 
 
-			leg = new L.Polyline([this._latlng, newPos], { weight: 1.5, color: '#222' });
+			leg = new L.Polyline([this._latlng, newPos], this._group.options.spiderfyLegOptions);
 			map.addLayer(leg);
 			m._spiderLeg = leg;
 		}
@@ -199,9 +199,12 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 				m.setOpacity(1);
 			}
 
+			var legOptions = this._group.options.spiderfyLegOptions;
+			legOptions.opacity = initialLegOpacity;
+
 
 			//Add Legs.
-			leg = new L.Polyline([me._latlng, newPos], { weight: 1.5, color: '#222', opacity: initialLegOpacity });
+			leg = new L.Polyline([me._latlng, newPos], legOptions);
 			map.addLayer(leg);
 			m._spiderLeg = leg;
 

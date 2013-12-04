@@ -28,6 +28,9 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		//Increase to increase the distance away that spiderfied markers appear from the center
 		spiderfyDistanceMultiplier: 1,
 
+		// Options to pass on creation of a spiderLeg polyline
+		spiderfyLegOptions: { weight: 1.5, color: '#222' },
+
 		//Options to pass to the L.Polygon constructor
 		polygonOptions: {}
 	},
